@@ -30,6 +30,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/n7100/bluetooth
 # Kernel
 TARGET_KERNEL_SOURCE := kernel/samsung/smdk4412
 TARGET_KERNEL_CONFIG := custom_n7100_defconfig
+BOARD_CUSTOM_BOOTIMG_MK := device/samsung/n7100/custombootimg.mk
 
 # assert
 TARGET_OTA_ASSERT_DEVICE := t03g,n7100,GT-N7100
@@ -38,8 +39,11 @@ TARGET_OTA_ASSERT_DEVICE := t03g,n7100,GT-N7100
 -include vendor/samsung/n7100/BoardConfigVendor.mk
 
 # Recovery
-TARGET_RECOVERY_FSTAB := device/samsung/n7100/rootdir/fstab.smdk4x12
-RECOVERY_FSTAB_VERSION := 2
+#TARGET_RECOVERY_FSTAB := device/samsung/n7100/rootdir/fstab.smdk4x12
+#RECOVERY_FSTAB_VERSION := 2
+
+# Use this flag if the board has a ext4 partition larger than 2gb
+BOARD_HAS_LARGE_FILESYSTEM := true
 
 # TWRP
 DEVICE_RESOLUTION := 720x1280
@@ -65,3 +69,17 @@ BOARD_SEPOLICY_UNION := \
 
 # Camera wrapper
 TARGET_PROVIDES_CAMERA_HAL := true
+
+# MultiROM config. MultiROM also uses parts of TWRP config
+MR_INPUT_TYPE := type_b
+MR_INIT_DEVICES := device/samsung/n7100/multirom/mr_init_devices.c
+MR_DPI := hdpi
+MR_DPI_FONT := 216
+MR_FSTAB := device/samsung/n7100/recovery.fstab
+MR_KEXEC_MEM_MIN := 0x44000000
+MR_USE_MROM_FSTAB := true
+#MR_INFOS := device/samsung/n7100/multirom/mrom_infos
+MR_DEVICE_HOOKS := device/samsung/n7100/multirom/mr_hooks.c
+MR_DEVICE_HOOKS_VER := 3
+TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
+#TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
