@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <sys/select.h>
+#include <pthread.h>
 
 #include <utils/Log.h>
 
@@ -29,6 +30,8 @@
 #include "SensorBase.h"
 
 /*****************************************************************************/
+
+static pthread_mutex_t sspEnableLock = PTHREAD_MUTEX_INITIALIZER;
 
 SensorBase::SensorBase(
         const char* dev_name,
@@ -146,25 +149,24 @@ int SensorBase::flush(int handle)
 int SensorBase::sspEnable(const char* sensorname, int sensorvalue, int en)
 {
     FILE* sspfile;
-    int oldvalue = 0;
-    int reset = 0;
-    int newvalue;
-    int fd;
+    int sspValue = 0;
 
-    sspfile = fopen(SSP_DEVICE_ENABLE, "r");
-    fscanf(sspfile, "%d", &oldvalue);
+    pthread_mutex_lock(&sspEnableLock);
+
+    sspfile = fopen(SSP_DEVICE_ENABLE, "r+");
+    fscanf(sspfile, "%d", &sspValue);
     fclose(sspfile);
 
-    if(en) {
-        newvalue = oldvalue | sensorvalue;
-    } else {
-        newvalue = oldvalue & (~sensorvalue);
-    }
-    ALOGI("%s: name: %s sensor: %i old value: %x  new value: %x ", __func__, sensorname, sensorvalue, oldvalue, newvalue);
-    if (sspWrite(newvalue))
-	return -1;
+    if (en)
+        sspValue |= sensorvalue;
     else
-        return 0;
+        sspValue &= ~sensorvalue;
+
+    sspWrite(sspValue);
+
+    pthread_mutex_unlock(&sspEnableLock);
+
+    return 0;
 }
 
 int SensorBase::sspWrite(int sensorvalue)
