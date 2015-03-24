@@ -1,23 +1,15 @@
 [
     {
-        "repository":  "android_device_samsung_n7100",
-        "target_path": "device/samsung/n7100"
-    },
-    {
         "remote":      "github",
         "repository":  "tilaksidduram/android_device_samsung_smdk4412-common",
         "target_path": "device/samsung/smdk4412-common",
-        "revision":    "lollipop"
-    },
-    {
-        "repository":  "android_kernel_samsung_smdk4412",
-        "target_path": "kernel/samsung/smdk4412"
-    },
-    {
-        "remote":      "cm",
-        "repository":  "CyanogenMod/android_packages_apps_SamsungServiceMode",
-        "target_path": "packages/apps/SamsungServiceMode",
         "revision":    "cm-12.0"
+    },
+    {
+        "remote":      "github",
+        "repository":  "tilaksidduram/android_kernel_samsung_smdk4412",
+        "target_path": "kernel/samsung/smdk4412"
+        "revision":    "cm-12.0-kexec-new"
     },
     {
         "remote":      "github",
@@ -29,6 +21,12 @@
         "remote":      "github",
         "repository":  "TheMuppets/proprietary_vendor_samsung",
         "target_path": "vendor/samsung",
+        "revision":    "cm-12.0"
+    },
+    {
+        "remote":      "github",
+        "repository":  "CyanogenMod/android_packages_apps_SamsungServiceMode",
+        "target_path": "packages/apps/SamsungServiceMode",
         "revision":    "cm-12.0"
     }
 ]
