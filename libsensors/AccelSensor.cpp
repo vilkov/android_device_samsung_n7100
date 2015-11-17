@@ -22,6 +22,7 @@
 #include <dirent.h>
 #include <sys/select.h>
 #include <utils/Log.h>
+#include <cstring>
 
 #include "AccelSensor.h"
 
