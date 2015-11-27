@@ -23,6 +23,7 @@
 BOARD_PROVIDES_LIBRIL := true
 BOARD_MODEM_TYPE := xmm6262
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/n7100/include
+BOARD_RIL_CLASS := ../../../device/samsung/n7100/ril
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/n7100/bluetooth
@@ -31,9 +32,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/n7100/bluetooth
 TARGET_KERNEL_SOURCE := kernel/samsung/smdk4412
 TARGET_KERNEL_CONFIG := cyanogenmod_n7100_defconfig
 BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 androidboot.selinux=permissive
-
-# ril
-BOARD_RIL_CLASS := ../../../device/samsung/n7100/ril/telephony/java
 
 # Selinux
 #BOARD_SEPOLICY_DIRS := \

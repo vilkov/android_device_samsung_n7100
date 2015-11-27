@@ -120,9 +120,11 @@ public class SamsungExynos4RIL extends RIL implements CommandsInterface {
     static final int RIL_UNSOL_MIP_CONNECT_STATUS = 11032;
 
     private Object mCatProCmdBuffer;
+    /* private Message mPendingGetSimStatus; */
 
-    public SamsungExynos4RIL(Context context, int networkMode, int cdmaSubscription, Integer instanceid) {
-        super(context, networkMode, cdmaSubscription);
+    public SamsungExynos4RIL(Context context, int networkMode, int cdmaSubscription, Integer instanceId) {
+        super(context, networkMode, cdmaSubscription, instanceId);
+        mQANElements = 5;
     }
 
     static String
@@ -168,7 +170,7 @@ public class SamsungExynos4RIL extends RIL implements CommandsInterface {
             case RIL_REQUEST_ENTER_SIM_PUK2: ret =  responseInts(p); break;
             case RIL_REQUEST_CHANGE_SIM_PIN: ret =  responseInts(p); break;
             case RIL_REQUEST_CHANGE_SIM_PIN2: ret =  responseInts(p); break;
-            case RIL_REQUEST_ENTER_DEPERSONALIZATION_CODE: ret =  responseInts(p); break;
+            case RIL_REQUEST_ENTER_NETWORK_DEPERSONALIZATION: ret =  responseInts(p); break;
             case RIL_REQUEST_GET_CURRENT_CALLS: ret =  responseCallList(p); break;
             case RIL_REQUEST_DIAL: ret =  responseVoid(p); break;
             case RIL_REQUEST_DIAL_EMERGENCY: ret =  responseVoid(p); break;
@@ -372,6 +374,25 @@ public class SamsungExynos4RIL extends RIL implements CommandsInterface {
         send(rr);
     }
 
+/*    @Override
+    public void
+    getIccCardStatus(Message result) {
+        if (mState != RadioState.RADIO_ON) {
+            mPendingGetSimStatus = result;
+        } else {
+            super.getIccCardStatus(result);
+        }
+    }
+    @Override
+    protected void
+    switchToRadioState(RadioState newState) {
+        super.switchToRadioState(newState);
+        if (newState == RadioState.RADIO_ON && mPendingGetSimStatus != null) {
+            super.getIccCardStatus(mPendingGetSimStatus);
+            mPendingGetSimStatus = null;
+        }
+    }*/
+
     public void
     dialEmergencyCall(String address, int clirMode, Message result) {
         RILRequest rr;
@@ -428,6 +449,30 @@ public class SamsungExynos4RIL extends RIL implements CommandsInterface {
                                 new AsyncResult (null, mCatProCmdBuffer, null));
             mCatProCmdBuffer = null;
         }
+    }
+
+    private void
+    constructGsmSendSmsRilRequest (RILRequest rr, String smscPDU, String pdu) {
+        rr.mParcel.writeInt(2);
+        rr.mParcel.writeString(smscPDU);
+        rr.mParcel.writeString(pdu);
+    }
+
+    /**
+     * The RIL can't handle the RIL_REQUEST_SEND_SMS_EXPECT_MORE
+     * request properly, so we use RIL_REQUEST_SEND_SMS instead.
+     */
+    @Override
+    public void
+    sendSMSExpectMore (String smscPDU, String pdu, Message result) {
+        RILRequest rr
+                = RILRequest.obtain(RIL_REQUEST_SEND_SMS, result);
+
+        constructGsmSendSmsRilRequest(rr, smscPDU, pdu);
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
+
+        send(rr);
     }
 
 }
