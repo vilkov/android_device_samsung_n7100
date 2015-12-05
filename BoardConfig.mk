@@ -24,6 +24,7 @@ BOARD_PROVIDES_LIBRIL := true
 BOARD_MODEM_TYPE := xmm6262
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/n7100/include
 BOARD_RIL_CLASS := ../../../device/samsung/n7100/ril
+COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/n7100/bluetooth
@@ -38,9 +39,6 @@ TARGET_OTA_ASSERT_DEVICE := t03g,n7100,GT-N7100
 
 # inherit from the proprietary version
 -include vendor/samsung/n7100/BoardConfigVendor.mk
-
-# Blobs
-COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # Recovery
 TARGET_RECOVERY_FSTAB := device/samsung/n7100/rootdir/fstab.smdk4x12
