@@ -233,8 +233,8 @@
             32 - Camera
             64 - Volume rocker
          For example, a device with Home, Back and Menu keys would set this
-         config to 7. -->
-    <integer name="config_deviceHardwareWakeKeys">65</integer>
+         config to 7.
+    <integer name="config_deviceHardwareWakeKeys">65</integer> -->
 
     <!-- Control the behavior when the user long presses the home button.
             0 - Nothing
@@ -247,7 +247,7 @@
          policy/src/com/android/internal/policy/impl/PhoneWindowManager.java -->
     <integer name="config_longPressOnHomeBehavior">3</integer>
 
-    <integer name="config_longPressOnMenuBehavior">2</integer>
+    <!-- <integer name="config_longPressOnMenuBehavior">2</integer> -->
 
     <!-- Control the behavior when the user double-taps the home button.
             0 - Nothing
@@ -321,6 +321,6 @@
     <!-- Indicates whether round icons should be parsed from the application manifest. -->
     <bool name="config_useRoundIcon">true</bool>
 
-    <!-- Enable blur support -->
-    <bool name="config_uiBlurEnabled">true</bool>
+    <!-- Enable blur support
+    <bool name="config_uiBlurEnabled">true</bool>  -->
 </resources>
