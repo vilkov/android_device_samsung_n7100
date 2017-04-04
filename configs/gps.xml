@@ -46,10 +46,7 @@
        ltoFileName="lto2.dat"
        acLtoDir="/data/gps/"
        LbsSyncLtoThresholdDays="1"
-       LbsTAC="10101106"
-       LbsCellEnable="false" 
-       ctrlPipe="/data/gps/glgpsctrl"
-       LbsWlanEnable="false"
+       LbsCellEnable="false"
 
        IgnoreJniTime="true"
        AssertEnabled="false"
