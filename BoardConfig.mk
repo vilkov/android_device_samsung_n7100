@@ -68,5 +68,5 @@ TARGET_USERIMAGES_USE_F2FS := true
 RECOVERY_FSTAB_VERSION := 2
 
 # Selinux
-BOARD_SEPOLICY_DIRS += \
-    device/samsung/n7100/selinux
+#BOARD_SEPOLICY_DIRS += \
+#    device/samsung/n7100/selinux
