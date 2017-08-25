@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2012 The CyanogenMod Project
+# Copyright (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -53,9 +53,6 @@ TARGET_OTA_ASSERT_DEVICE := t03g,n7100,GT-N7100
 # inherit from the proprietary version
 -include vendor/samsung/n7100/BoardConfigVendor.mk
 
-# External apps on SD
-#TARGET_EXTERNAL_APPS = sdcard1
-
 # Camera Hacks
 BOARD_GLOBAL_CFLAGS += -DMETADATA_CAMERA_SOURCE
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
@@ -69,9 +66,6 @@ TARGET_RECOVERY_FSTAB := device/samsung/n7100/rootdir/fstab.smdk4x12
 TARGET_RECOVERY_DENSITY := mdpi
 TARGET_USERIMAGES_USE_F2FS := true
 RECOVERY_FSTAB_VERSION := 2
-
-# Compatibility with pre-kitkat Sensor HALs
-# SENSORS_NEED_SETRATE_ON_ENABLE := true
 
 # Selinux
 BOARD_SEPOLICY_DIRS += \
